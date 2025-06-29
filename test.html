@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚀 App Deployment Test</h1>
+        
+        <div class="status info">
+            <strong>Test 1:</strong> Basic HTML loading
+            <br>✅ This page loaded successfully
+        </div>
+        
+        <div class="status info">
+            <strong>Test 2:</strong> JavaScript loading
+            <br><span id="js-status">⏳ Testing...</span>
+        </div>
+        
+        <div class="status info">
+            <strong>Test 3:</strong> Asset loading
+            <br><span id="asset-status">⏳ Testing...</span>
+        </div>
+        
+        <div class="status info">
+            <strong>Test 4:</strong> Main app loading
+            <br><span id="app-status">⏳ Testing...</span>
+        </div>
+        
+        <hr>
+        
+        <h3>Next Steps:</h3>
+        <ol>
+            <li>If all tests pass, your app should be working</li>
+            <li>Deploy the <code>dist</code> folder to Netlify</li>
+            <li>Update the TONConnect manifest with your domain</li>
+            <li>Test in Telegram Web App</li>
+        </ol>
+        
+        <p><strong>Note:</strong> This is a test page. The actual app is in the <code>dist</code> folder.</p>
+    </div>
+
+    <script>
+        // Test 2: JavaScript
+        document.getElementById('js-status').innerHTML = '✅ JavaScript is working';
+        
+        // Test 3: Asset loading
+        fetch('/assets/index-BJkuuIF4.js')
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('asset-status').innerHTML = '✅ Assets are accessible';
+                } else {
+                    document.getElementById('asset-status').innerHTML = '❌ Assets not found';
+                }
+            })
+            .catch(() => {
+                document.getElementById('asset-status').innerHTML = '❌ Assets not accessible';
+            });
+        
+        // Test 4: Main app
+        setTimeout(() => {
+            const root = document.getElementById('root');
+            if (root) {
+                document.getElementById('app-status').innerHTML = '✅ App container found';
+            } else {
+                document.getElementById('app-status').innerHTML = '❌ App container missing';
+            }
+        }, 1000);
+    </script>
+</body>
+</html> 

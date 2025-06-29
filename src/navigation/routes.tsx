@@ -10,6 +10,7 @@ import { TokenDetailPage } from '@/pages/TokenDetailPage/TokenDetailPage';
 import { CreateTokenPage } from '@/pages/CreateTokenPage/CreateTokenPage';
 import { MyTokensPage } from '@/pages/MyTokensPage/MyTokensPage';
 import { SettingsPage } from '@/pages/SettingsPage/SettingsPage';
+import { TestPage } from '@/pages/TestPage.tsx';
 
 interface Route {
   path: string;
@@ -19,7 +20,8 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/', Component: MemePadPage },
+  { path: '/', Component: TestPage },
+  { path: '/memepad', Component: MemePadPage },
   { path: '/home', Component: IndexPage, title: 'Home' },
   { path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },

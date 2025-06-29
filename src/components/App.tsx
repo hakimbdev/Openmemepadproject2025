@@ -7,9 +7,7 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import { routes } from '@/navigation/routes.tsx';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
 import { ThemeProvider } from '@/contexts/ThemeContext';
-
-// TON Connect manifest URL - in a real app, this would be your own manifest
-const manifestUrl = 'https://raw.githubusercontent.com/ton-connect/demo-dapp-with-react/main/public/tonconnect-manifest.json';
+import { publicUrl } from '@/helpers/publicUrl.ts';
 
 // Create a wrapper component that will use the ThemeContext
 const ThemedApp = () => {
@@ -35,7 +33,7 @@ const ThemedApp = () => {
 
 export function App() {
   return (
-    <TonConnectUIProvider manifestUrl={manifestUrl}>
+    <TonConnectUIProvider manifestUrl={publicUrl('tonconnect-manifest.json')}>
       <ThemeProvider>
         <ThemedApp />
       </ThemeProvider>

@@ -32,6 +32,41 @@ interface Token {
   owned?: number;
 }
 
+// Mock data for fallback
+const mockTokens: Token[] = [
+  {
+    id: '1',
+    name: 'MemeCoin',
+    symbol: 'MEME',
+    iconUrl: 'https://via.placeholder.com/40',
+    price: 0.001,
+    marketCap: '$1.2M',
+    change24h: 15.5,
+    launchStatus: 'live',
+  },
+  {
+    id: '2',
+    name: 'DogeClone',
+    symbol: 'DOGE2',
+    iconUrl: 'https://via.placeholder.com/40',
+    price: 0.0005,
+    marketCap: '$800K',
+    change24h: -5.2,
+    launchStatus: 'live',
+  },
+  {
+    id: '3',
+    name: 'PepeToken',
+    symbol: 'PEPE',
+    iconUrl: 'https://via.placeholder.com/40',
+    price: 0.002,
+    marketCap: '$2.1M',
+    change24h: 25.8,
+    launchStatus: 'upcoming',
+    progress: 75,
+  },
+];
+
 export const MemePadPage: FC = () => {
   const wallet = useTonWallet();
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,17 +81,28 @@ export const MemePadPage: FC = () => {
     async function fetchTokens() {
       setIsLoading(true);
       setError(null);
-      const { data, error } = await supabase
-        .from('tokens')
-        .select('*')
-        .eq('is_active', true);
-      if (error) {
-        console.error('Error fetching tokens:', error);
-        setTokens([]);
-        setError('Failed to load tokens. Please try again later.');
-      } else {
-        setTokens(data || []);
+      
+      try {
+        const { data, error } = await supabase
+          .from('tokens')
+          .select('*')
+          .eq('is_active', true);
+          
+        if (error) {
+          console.error('Error fetching tokens:', error);
+          // Use mock data as fallback
+          setTokens(mockTokens);
+          setError('Using demo data. Database connection failed.');
+        } else {
+          setTokens(data && data.length > 0 ? data : mockTokens);
+        }
+      } catch (err) {
+        console.error('Supabase connection error:', err);
+        // Use mock data as fallback
+        setTokens(mockTokens);
+        setError('Using demo data. Network connection failed.');
       }
+      
       setIsLoading(false);
     }
     fetchTokens();
@@ -176,6 +222,19 @@ export const MemePadPage: FC = () => {
             </div>
           </div>
         </div>
+        
+        {error && (
+          <div style={{ 
+            background: '#ff6b6b', 
+            color: 'white', 
+            padding: '8px 16px', 
+            margin: '8px 16px', 
+            borderRadius: '8px',
+            fontSize: '14px'
+          }}>
+            {error}
+          </div>
+        )}
         
         <div className={element('tabs')}>
           <button 
