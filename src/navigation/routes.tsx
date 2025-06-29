@@ -20,8 +20,7 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/', Component: TestPage },
-  { path: '/memepad', Component: MemePadPage },
+  { path: '/', Component: MemePadPage },
   { path: '/home', Component: IndexPage, title: 'Home' },
   { path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
