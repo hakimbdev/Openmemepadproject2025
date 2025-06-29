@@ -117,17 +117,13 @@ export const MyTokensPage: FC = () => {
       <div className={block()}>
         <div className={element('header')}>
           <Title level="2">My Tokens</Title>
-          <Button onClick={() => navigate(-1)}>Back</Button>
+          <Button onClick={() => navigate(-1)} style={{ borderRadius: 8, background: '#334155', color: '#fff', fontWeight: 600 }}>Back</Button>
         </div>
         
         {isLoading ? (
-          <div className={element('loading')}>
-            <Text>Loading your tokens...</Text>
-          </div>
+          <div className={element('loading')}>Loading your tokens...</div>
         ) : error ? (
-          <div className={element('error')}>
-            <Text>{error}</Text>
-          </div>
+          <div className={element('error')}>{error}</div>
         ) : (
           <>
             {myTokens.length > 0 ? (
@@ -135,66 +131,55 @@ export const MyTokensPage: FC = () => {
                 <div className={element('summary')}>
                   <Title level="3">Total Value</Title>
                   <div className={element('total-value')}>
-                    <Text className={element('value-amount')}>${getTotalValue().toFixed(2)}</Text>
-                    <Text className={element('wallet-address')}>
+                    <span className={element('value-amount')}>${getTotalValue().toFixed(2)}</span>
+                    <span className={element('wallet-address')}>
                       {wallet.account?.address ? `${wallet.account.address.slice(0, 6)}...${wallet.account.address.slice(-6)}` : 'Address not available'}
-                    </Text>
+                    </span>
                   </div>
                 </div>
-
-                <List>
-                  <Section header="My Tokens">
-                    {myTokens.map(token => (
-                      <Cell
-                        key={token.id}
-                        before={
-                          <Avatar src={token.iconUrl} alt={`${token.name} logo`} width={48} height={48} />
-                        }
-                        subtitle={
-                          <div className={element('token-info')}>
-                            <Text>{token.symbol}</Text>
-                            <Text className={element('token-amount')}>{token.amount} tokens</Text>
-                          </div>
-                        }
-                        after={
-                          <div className={element('price-info')}>
-                            <Text className={element('value')}>${token.value.toFixed(2)}</Text>
-                            <Text className={`${element('change')} ${token.change24h >= 0 ? element('positive') : element('negative')}`}>
-                              {token.change24h >= 0 ? '+' : ''}{token.change24h}%
-                            </Text>
-                          </div>
-                        }
-                        onClick={() => handleViewToken(token.id)}
-                      >
-                        <Title level="3">{token.name}</Title>
-                      </Cell>
-                    ))}
-                  </Section>
-                </List>
+                <div className={element('token-list')}>
+                  {myTokens.map(token => (
+                    <div key={token.id} className={element('token-card')}>
+                      <img src={token.iconUrl} alt={token.symbol} className={element('token-icon')} />
+                      <div className={element('token-info')}>
+                        <div className={element('token-title')}>
+                          {token.name} <span className={element('token-symbol')}>({token.symbol})</span>
+                        </div>
+                        <div className={element('token-meta')}>
+                          <span>Amount: {token.amount}</span>
+                          <span>Price: ${token.price}</span>
+                          <span style={{ color: token.change24h >= 0 ? '#22c55e' : '#ef4444' }}>
+                            24h: {token.change24h >= 0 ? '+' : ''}{token.change24h}%
+                          </span>
+                        </div>
+                        <div style={{ color: '#38bdf8', fontSize: 13, marginTop: 2 }}>
+                          Value: ${token.value.toFixed(2)}
+                        </div>
+                      </div>
+                      <div className={element('token-actions')}>
+                        <button
+                          className={element('details-btn')}
+                          onClick={() => handleViewToken(token.id)}
+                        >
+                          Details
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </>
             ) : (
               <div className={element('empty-state')}>
-                <Title level="3">No Tokens Found</Title>
-                <Text>
-                  You don't have any tokens yet. Buy some tokens or create your own!
-                </Text>
+                You don't own any tokens yet.<br />
+                <button
+                  className={element('details-btn')}
+                  onClick={handleCreateToken}
+                  style={{ marginTop: 16 }}
+                >
+                  Create Token
+                </button>
               </div>
             )}
-            
-            <div className={element('actions')}>
-              <Button
-                className={element('create-button')}
-                onClick={handleCreateToken}
-              >
-                Create New Token
-              </Button>
-              <Button
-                className={element('buy-button')}
-                onClick={() => navigate('/')}
-              >
-                Buy Tokens
-              </Button>
-            </div>
           </>
         )}
       </div>

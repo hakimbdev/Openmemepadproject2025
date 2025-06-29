@@ -1,14 +1,9 @@
 import { FC, useState, useEffect } from 'react';
 import {
-  Avatar,
-  Button,
-  Cell,
-  List,
-  Progress,
-  Section,
-  Text,
-  Title,
-} from '@telegram-apps/telegram-ui';
+   Progress,
+   Text,
+   Title,
+ } from '@telegram-apps/telegram-ui';
 import { useTonWallet } from '@tonconnect/ui-react';
 import { Page } from '@/components/Page.tsx';
 import { bem } from '@/css/bem.ts';
@@ -222,20 +217,13 @@ export const MemePadPage: FC = () => {
             </div>
           </div>
         </div>
-        
+
         {error && (
-          <div style={{ 
-            background: '#ff6b6b', 
-            color: 'white', 
-            padding: '8px 16px', 
-            margin: '8px 16px', 
-            borderRadius: '8px',
-            fontSize: '14px'
-          }}>
+          <div className={element('error')}>
             {error}
           </div>
         )}
-        
+
         <div className={element('tabs')}>
           <button 
             className={`${element('tab')} ${activeTab === 'live' ? element('tab-active') : ''}`} 
@@ -258,102 +246,72 @@ export const MemePadPage: FC = () => {
         </div>
 
         <div className={element('search')}>
-          <div className={element('search-container')}>
-            <input
-              type="text"
-              className={element('search-input')}
-              value={searchQuery}
-              onChange={handleSearch}
-              placeholder="Search by name or symbol"
-            />
-            <div className={element('search-icon')}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M14 14L11 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-          </div>
+          <input
+            type="text"
+            placeholder="Search tokens by name or symbol..."
+            value={searchQuery}
+            onChange={handleSearch}
+          />
         </div>
 
-        {isLoading ? (
-          <div className={element('loading')}>
-            <Text>Loading tokens...</Text>
-          </div>
-        ) : error ? (
-          <div className={element('error')}>
-            <Text>{error}</Text>
-          </div>
-        ) : (
-          <List>
-            {filteredTokens.length > 0 ? (
-              filteredTokens.map(token => (
-                <Section key={token.id} className={element('token-card')}>
-                  <Cell
-                    before={
-                      <Avatar src={token.iconUrl} alt={`${token.name} logo`} width={48} height={48} />
-                    }
-                    subtitle={
-                      <div className={element('token-info')}>
-                        <Text>{token.symbol}</Text>
-                        {token.owned && token.owned > 0 && (
-                          <Text className={element('owned-amount')}>You own: {token.owned.toLocaleString()}</Text>
-                        )}
-                      </div>
-                    }
-                    after={
-                      <div className={element('price-info')}>
-                        <Text className={element('price')}>${token.price.toFixed(5)}</Text>
-                        <Text className={`${element('change')} ${token.change24h >= 0 ? element('positive') : element('negative')}`}>
-                          {token.change24h >= 0 ? '+' : ''}{token.change24h}%
-                        </Text>
-                      </div>
-                    }
-                    onClick={() => handleTokenDetails(token.id)}
-                  >
-                    <Title level="3">{token.name}</Title>
-                  </Cell>
-                  {token.progress !== undefined && token.progress < 100 && (
-                    <div className={element('progress-container')}>
-                      <Progress value={token.progress} />
-                      <Text className={element('progress-text')}>{token.progress}% Filled</Text>
+        <div className={element('token-list')}>
+          {isLoading ? (
+            <div className={element('empty-state')}>Loading tokens...</div>
+          ) : filteredTokens.length === 0 ? (
+            <div className={element('empty-state')}>No tokens found for this tab or search.</div>
+          ) : (
+            filteredTokens.map(token => (
+              <div key={token.id} className={element('token-card')}>
+                <img src={token.iconUrl} alt={token.symbol} className={element('token-icon')} />
+                <div className={element('token-info')}>
+                  <div className={element('token-title')}>
+                    {token.name} <span className={element('token-symbol')}>({token.symbol})</span>
+                  </div>
+                  <div className={element('token-meta')}>
+                    <span>Price: ${token.price}</span>
+                    <span>Market Cap: {token.marketCap}</span>
+                    <span style={{ color: token.change24h >= 0 ? '#22c55e' : '#ef4444' }}>
+                      24h: {token.change24h >= 0 ? '+' : ''}{token.change24h}%
+                    </span>
+                  </div>
+                  {typeof token.owned === 'number' && token.owned > 0 && (
+                    <div style={{ color: '#38bdf8', fontSize: 13, marginTop: 2 }}>
+                      Owned: {token.owned}
                     </div>
                   )}
-                  <div className={element('action-buttons')}>
-                    <Button 
-                      className={element('buy-button')}
-                      onClick={() => handleBuyToken(token.id)}
-                      loading={transactionInProgress}
-                      disabled={transactionInProgress}
-                    >
-                      Buy
-                    </Button>
-                    {token.owned && token.owned > 0 ? (
-                      <Button 
-                        className={element('sell-button')}
-                        onClick={() => handleSellToken(token.id)}
-                        loading={transactionInProgress}
-                        disabled={transactionInProgress}
-                      >
-                        Sell
-                      </Button>
-                    ) : (
-                      <Button 
-                        className={element('details-button')}
-                        onClick={() => handleTokenDetails(token.id)}
-                      >
-                        Details
-                      </Button>
-                    )}
-                  </div>
-                </Section>
-              ))
-            ) : (
-              <div className={element('empty-state')}>
-                <Text>No tokens found</Text>
+                  {token.progress && (
+                    <div style={{ marginTop: 6 }}>
+                      <Progress value={token.progress} style={{ height: 8, borderRadius: 6 }} />
+                      <span style={{ fontSize: 12, color: '#94a3b8' }}>Progress: {token.progress}%</span>
+                    </div>
+                  )}
+                </div>
+                <div className={element('token-actions')}>
+                  <button
+                    className={element('buy-btn')}
+                    onClick={() => handleBuyToken(token.id)}
+                    disabled={transactionInProgress}
+                  >
+                    Buy
+                  </button>
+                  <button
+                    className={element('sell-btn')}
+                    onClick={() => handleSellToken(token.id)}
+                    disabled={transactionInProgress || !token.owned}
+                  >
+                    Sell
+                  </button>
+                  <button
+                    className={element('details-btn')}
+                    onClick={() => handleTokenDetails(token.id)}
+                  >
+                    Details
+                  </button>
+                </div>
               </div>
-            )}
-          </List>
-        )}
+            ))
+          )}
+        </div>
       </div>
     </Page>
   );

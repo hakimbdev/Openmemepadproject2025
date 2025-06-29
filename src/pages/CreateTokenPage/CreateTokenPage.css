@@ -1,20 +1,26 @@
 .create-token-page {
-  padding: 16px;
-  background: #161f2c;
+  padding: 0;
+  background: #fff;
   min-height: calc(100vh - 60px);
 }
 
 .create-token-page__header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  padding: 24px 16px 8px 16px;
+  background: #fff;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+  margin-bottom: 16px;
 }
 
 .create-token-page__section-description {
-  color: #8892b0;
+  color: #2563eb;
   margin-top: 4px;
   margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .create-token-page__form-group {
@@ -26,18 +32,23 @@
   font-weight: 500;
   margin-bottom: 8px;
   display: block;
-  color: #e6f1ff;
+  color: #222;
 }
 
 .create-token-page__input, 
 .create-token-page__textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid rgba(96, 165, 250, 0.3);
-  border-radius: 8px;
+  border: 1.5px solid #2563eb;
+  border-radius: 12px;
   font-size: 16px;
-  background-color: rgba(96, 165, 250, 0.1);
-  color: #e6f1ff;
+  background: #fff;
+  color: #222;
+  outline: none;
+  transition: border 0.2s;
+}
+.create-token-page__input:focus, .create-token-page__textarea:focus {
+  border: 2px solid #2563eb;
 }
 
 .create-token-page__textarea {
@@ -48,26 +59,36 @@
 .create-token-page__slider {
   width: 100%;
   margin: 10px 0;
-  background-color: #60a5fa;
+  background-color: #2563eb;
 }
 
 .create-token-page__help-text {
   font-size: 12px;
-  color: #8892b0;
+  color: #2563eb;
   margin-top: 4px;
 }
 
 .create-token-page__slider-label {
   margin-bottom: 12px;
   font-weight: 500;
-  color: #e6f1ff;
+  color: #222;
 }
 
 .create-token-page__action-button {
   width: 100%;
   margin-top: 16px;
-  background-color: #60a5fa;
-  color: #ffffff;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.create-token-page__action-button:hover {
+  background: #1e40af;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
 }
 
 .create-token-page__button-group {
@@ -77,14 +98,20 @@
   padding: 0 16px 16px;
 }
 
-.create-token-page__secondary-button,
-.create-token-page__action-button {
-  flex: 1;
-}
-
 .create-token-page__secondary-button {
-  background-color: rgba(96, 165, 250, 0.3);
-  color: #e6f1ff;
+  flex: 1;
+  background: none;
+  color: #2563eb;
+  border: 1.5px solid #2563eb;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.create-token-page__secondary-button:hover {
+  background: #2563eb;
+  color: #fff;
 }
 
 .create-token-page__fee-info {
@@ -95,12 +122,12 @@
 
 .create-token-page__fee-label {
   font-weight: 500;
-  color: #8892b0;
+  color: #2563eb;
 }
 
 .create-token-page__fee-value {
   font-weight: 600;
-  color: #e6f1ff;
+  color: #2563eb;
 }
 
 .create-token-page__summary-item {
@@ -111,10 +138,9 @@
 .create-token-page__summary-label {
   min-width: 120px;
   font-weight: 500;
-  color: #8892b0;
+  color: #2563eb;
 }
 
-/* Logo uploader styles */
 .create-token-page__logo-uploader {
   margin-bottom: 10px;
 }
@@ -126,11 +152,12 @@
   justify-content: center;
   width: 120px;
   height: 120px;
-  border: 2px dashed rgba(96, 165, 250, 0.5);
-  border-radius: 8px;
+  border: 2px dashed #2563eb;
+  border-radius: 12px;
   cursor: pointer;
-  color: #8892b0;
+  color: #2563eb;
   margin-bottom: 10px;
+  background: #fff;
 }
 
 .create-token-page__logo-placeholder span {
@@ -149,16 +176,27 @@
 .create-token-page__change-logo-button {
   width: auto !important;
   margin-top: 0 !important;
-  background-color: #60a5fa;
-  color: #ffffff;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 18px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.create-token-page__change-logo-button:hover {
+  background: #1e40af;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
 }
 
 .create-token-page__token-preview {
-  padding: 16px;
-  background-color: #1e40af;
-  border-radius: 12px;
+  padding: 20px 16px;
+  background: #fff;
+  border-radius: 16px;
   margin-bottom: 16px;
-  border: 1px solid #60a5fa;
+  box-shadow: 0 4px 16px rgba(30, 64, 175, 0.10);
+  border: 1.5px solid #e0e7ef;
 }
 
 .create-token-page__token-preview-header {
@@ -172,7 +210,7 @@
 }
 
 .create-token-page__token-preview-details {
-  background-color: rgba(96, 165, 250, 0.1);
+  background: #e0e7ef;
   border-radius: 8px;
   padding: 12px;
 }
@@ -182,5 +220,23 @@
   margin-top: 4px;
   white-space: pre-wrap;
   word-break: break-word;
-  color: #8892b0;
+  color: #2563eb;
+}
+
+.create-token-page__error {
+  background: #e0e7ef;
+  color: #2563eb;
+  padding: 8px 16px;
+  margin: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  border: 1.5px solid #2563eb;
+}
+
+.create-token-page__empty-state {
+  text-align: center;
+  color: #2563eb;
+  font-size: 18px;
+  margin-top: 40px;
 } 

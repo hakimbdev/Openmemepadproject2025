@@ -1,39 +1,56 @@
 .ton-connect-page {
-  background: #0a192f;
+  background: #fff;
   min-height: calc(100vh - 60px);
+  padding: 0;
 }
 
 .ton-connect-page__placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  background: #0a192f;
-  color: #e6f1ff;
-}
-
-.ton-connect-page__placeholder .tg-placeholder-description {
-  color: #8892b0 !important;
-}
-
-.ton-connect-page__placeholder .tg-placeholder-header {
-  color: #e6f1ff !important;
+  margin-top: 32px;
+  color: #2563eb;
+  text-align: center;
 }
 
 .ton-connect-page__button {
-  margin: 16px auto 0;
-  background-color: #041c3a !important;
-  color: #ffffff;
+  background: #2563eb;
+  color: #fff;
   border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.ton-connect-page__button:hover {
+  background: #1e40af;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
 }
 
 .ton-connect-page__button-connected {
-  margin: 16px 24px 16px auto;
-  background-color: #60a5fa !important;
-  color: #ffffff !important;
+  background: #fff;
+  color: #2563eb;
+  border: 1.5px solid #2563eb;
   border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+}
+.ton-connect-page__button-connected:hover {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+}
+
+.ton-connect-page__error {
+  background: #e0e7ef;
+  color: #2563eb;
+  padding: 8px 16px;
+  margin: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  border: 1.5px solid #2563eb;
 }
 
 /* Override the TonConnect button styles for dark theme */
