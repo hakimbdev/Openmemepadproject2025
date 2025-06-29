@@ -10,7 +10,6 @@ import { TokenDetailPage } from '@/pages/TokenDetailPage/TokenDetailPage';
 import { CreateTokenPage } from '@/pages/CreateTokenPage/CreateTokenPage';
 import { MyTokensPage } from '@/pages/MyTokensPage/MyTokensPage';
 import { SettingsPage } from '@/pages/SettingsPage/SettingsPage';
-import { TestPage } from '@/pages/TestPage.tsx';
 
 interface Route {
   path: string;
