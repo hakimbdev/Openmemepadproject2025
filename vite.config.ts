@@ -5,7 +5,7 @@ import mkcert from 'vite-plugin-mkcert';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/Minizero/',
+  base: '/',
   css: {
     preprocessorOptions: {
       scss: {
