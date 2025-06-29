@@ -42,6 +42,12 @@ if (import.meta.env.DEV) {
         if (e[0] === 'web_app_request_safe_area') {
           return emitEvent('safe_area_changed', noInsets);
         }
+        if (e[0] === 'web_app_request_write_access') {
+          return emitEvent('write_access_requested', { status: 'allowed' });
+        }
+        if (e[0] === 'web_app_request_phone') {
+          return emitEvent('phone_requested', { status: 'allowed' });
+        }
       },
       launchParams: new URLSearchParams([
         // Discover more launch parameters:
@@ -66,8 +72,10 @@ if (import.meta.env.DEV) {
           ['signature', 'some-signature'],
           ['user', JSON.stringify({ id: 1, first_name: 'Vladislav' })],
         ]).toString()],
-        ['tgWebAppVersion', '8.4'],
-        ['tgWebAppPlatform', 'tdesktop'],
+        ['tgWebAppVersion', '7.0'],
+        ['tgWebAppPlatform', 'web'],
+        ['tgWebAppStartParam', ''],
+        ['tgWebAppBotInline', 'false'],
       ]),
     });
 
